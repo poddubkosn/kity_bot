@@ -1,18 +1,6 @@
 # kittybot/kittybot.py
 
 
-# from telegram import Bot
-
-# # Здесь укажите токен, 
-# # который вы получили от @Botfather при создании бот-аккаунта
-# bot = Bot(token='2076140953:AAEZIuiG2YbwP9RnWhLem9RiVX7v77mxjJU')
-# # Укажите id своего аккаунта в Telegram
-# chat_id = 522743432
-# text = 'Вам телеграмма!'
-# # Отправка сообщения
-# bot.send_message(chat_id, text)
-
-# # kittyboyt/kittybot.py
 import logging
 import os
 import requests
@@ -28,10 +16,10 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO)
 
-#print(auth_token)
+
 updater = Updater(token=auth_token)
 URL = 'https://api.thecatapi.com/v1/images/search'
-#URL = ''
+
 
 def get_new_image():
     try:
