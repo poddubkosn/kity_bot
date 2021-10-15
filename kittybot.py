@@ -18,16 +18,26 @@ logging.basicConfig(
 
 
 updater = Updater(token=auth_token)
-URL = 'https://api.thecatapi.com/v1/images/search'
 
 
-def get_new_image():
+
+def get_new_image(animal):
+    if animal == 'dog':
+        URL = 'https://api.thedogapi.com/v1/images/search'
+    else:
+        URL = 'https://api.thecatapi.com/v1/images/search'
     try:
         response = requests.get(URL)
     except Exception as error:
+        
         #print(error)      
         logging.error(f'Ошибка при запросе к основному API: {error}')
-        new_url = 'https://api.thedogapi.com/v1/images/search'
+        if animal == 'dog':
+            new_url = 'https://api.thecatapi.com/v1/images/search'
+            
+        else:
+            new_url = 'https://api.thedogapi.com/v1/images/search'
+            
         response = requests.get(new_url)
     response = response.json()
     random_cat = response[0].get('url')
@@ -35,7 +45,11 @@ def get_new_image():
 
 def new_cat(update, context):
     chat = update.effective_chat
-    context.bot.send_photo(chat.id, get_new_image())
+    context.bot.send_photo(chat.id, get_new_image('cat'))
+
+def new_dog(update, context):
+    chat = update.effective_chat
+    context.bot.send_photo(chat.id,get_new_image('dog'))
 
 
 def say_hi(update, context):
@@ -45,7 +59,7 @@ def say_hi(update, context):
 def wake_up(update, context):
     chat = update.effective_chat
     name = update.message.chat.first_name
-    button = ReplyKeyboardMarkup([['/newcat','/sex']], resize_keyboard=True)
+    button = ReplyKeyboardMarkup([['/newcat','/sex','/newdog']], resize_keyboard=True)
     # buttons = ReplyKeyboardMarkup([
     #             ['Который час?', 'Определи мой ip'],
     #             ['/random_digit']
@@ -58,7 +72,7 @@ def wake_up(update, context):
         # text='Спасибо, что вы включили меня, {}!'.format(name),
         # reply_markup=buttons
         )
-    context.bot.send_photo(chat.id, get_new_image())
+    context.bot.send_photo(chat.id, get_new_image('cat'))
 
 
 def i_want(update, context):
@@ -72,6 +86,7 @@ def i_want(update, context):
 def main():
     updater.dispatcher.add_handler(CommandHandler('start', wake_up))
     updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
+    updater.dispatcher.add_handler(CommandHandler('newdog', new_dog))
     updater.dispatcher.add_handler(CommandHandler('sex', i_want))
     updater.dispatcher.add_handler(MessageHandler(Filters.text, say_hi))
 
