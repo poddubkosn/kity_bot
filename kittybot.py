@@ -45,7 +45,7 @@ def say_hi(update, context):
 def wake_up(update, context):
     chat = update.effective_chat
     name = update.message.chat.first_name
-    button = ReplyKeyboardMarkup([['/newcat']], resize_keyboard=True)
+    button = ReplyKeyboardMarkup([['/newcat','/sex']], resize_keyboard=True)
     # buttons = ReplyKeyboardMarkup([
     #             ['Который час?', 'Определи мой ip'],
     #             ['/random_digit']
