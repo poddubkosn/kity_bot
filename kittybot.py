@@ -97,7 +97,7 @@ def say_hi(update, context):
 def wake_up(update, context):
     chat = update.effective_chat
     name = update.message.chat.first_name
-    button = ReplyKeyboardMarkup([['/newcat','/sex','/newdog']], resize_keyboard=True)
+    button = ReplyKeyboardMarkup([['/newcat','/newdog']], resize_keyboard=True)
     # buttons = ReplyKeyboardMarkup([
     #             ['Который час?', 'Определи мой ip'],
     #             ['/random_digit']
@@ -113,11 +113,11 @@ def wake_up(update, context):
     context.bot.send_photo(chat.id, get_new_image('cat'))
 
 
-def i_want(update, context):
-    chat = update.effective_chat
-    name = update.message.chat.first_name
-    context.bot.send_message(chat_id=chat.id, 
-                             text=f'Я хочу тебя {name} !!!')
+# def i_want(update, context):
+#     chat = update.effective_chat
+#     name = update.message.chat.first_name
+#     context.bot.send_message(chat_id=chat.id, 
+#                              text=f'Я хочу тебя {name} !!!')
 # Регистрируется обработчик CommandHandler;
 # он будет отфильтровывать только сообщения с содержимым '/start'
 # и передавать их в функцию wake_up()
@@ -127,7 +127,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('start', wake_up))
     updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
     updater.dispatcher.add_handler(CommandHandler('newdog', new_dog))
-    updater.dispatcher.add_handler(CommandHandler('sex', i_want))
+    # updater.dispatcher.add_handler(CommandHandler('sex', i_want))
     updater.dispatcher.add_handler(MessageHandler(Filters.text, say_hi))
     updater_photo.start_polling()
     updater.start_polling()
